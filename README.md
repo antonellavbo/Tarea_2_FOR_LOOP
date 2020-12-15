@@ -1,7 +1,9 @@
 # TAREA-2-FOR-LOOP
+# Antes de correr, se corrigieron nombres de columnas para la fusi√≥n de datas
+# En la siguiente l√≠nea, cambiar directorio para ejectar el script en r studio
 setwd("C:/Users/Alumno/Documents/TAREA2_FOR_LOOP/TAREA-2-FOR-LOOP") #directorio de trabajo
 
-# respuesta N∞1. Cargar CSV y agregar columna "tamanio"
+# respuesta N¬∞1. Cargar CSV y agregar columna "tamanio"
 
 Chi.1<-read.csv ("grandes_chile.csv", sep = ";", row.names = 1)
 Chi.1$tamanio = "grande"
@@ -29,7 +31,7 @@ Per.4<-read.csv ("micro_peru.csv", sep = ";", row.names = 1)
 Per.4$tamanio = "micro"
 
 
-# respuesta N∞2. Fusionar los CSV y definir tipos de datos
+# respuesta N¬∞2. Fusionar los CSV y definir tipos de datos
 
 datosCSV<-rbind(Chi.1, Chi.2, Chi.3, Chi.4, Col.1, Col.2, Col.3, Col.4, Per.1, Per.2, Per.3, Per.4)
 respuesta2<-matrix(1:24,12,2)
@@ -40,9 +42,9 @@ for (x in 1: ncol(datosCSV)){
 print(respuesta2)
 
 
-# respuesta N∞3. observaciones Peru versus Chile
+# respuesta N¬∞3. observaciones Peru versus Chile
 
-obsPeru<-0    # contador de observaciones para Per˙
+obsPeru<-0    # contador de observaciones para Per√∫
 obsChile<-0   # contador de obsevaciones para Chile
 ultimo<-nrow(datosCSV)
 
@@ -64,7 +66,7 @@ if (diferencia==0){
 print(respuesta3)
 
 
-# respuesta N∞4. Pais con mas ingresos de explotaciÛn en cada aÒo
+# respuesta N¬∞4. Pais con mas ingresos de explotaci√≥n en cada a√±o
 
 ingre_Chile<-0        #contador de ingresos para Chile
 ingre_Colombia<-0     #contador de ingresos para Colombia
@@ -72,7 +74,7 @@ ingre_Peru<-0         #contador de ingresos para Peru
 ultimo<-nrow(datosCSV)
 
 for (x in 1:ultimo){
-  # rutina para convertir tasa chr a n˙mero
+  # rutina para convertir tasa chr a n√∫mero
   ingresoriginal<-datosCSV[x,2]
   n_datos<-nchar(datosCSV[x,2])
   busca_coma<-0
@@ -126,7 +128,7 @@ for (x in 1:ultimo){
   }
 }
 if (ingre_Peru>ingre_Chile & ingre_Peru>ingre_Colombia){
-  respuesta4<-"Per˙"
+  respuesta4<-"Per√∫"
 }
 if (ingre_Chile>ingre_Colombia & ingre_Chile>ingre_Peru){
   respuesta4<-"Chile"
@@ -138,14 +140,14 @@ respuesta4<-paste("el pais con mas ingresos es",respuesta4,sep = " ")
 print(respuesta4)
 
 
-# respuesta N∞5. Nueva variable, donde...
+# respuesta N¬∞5. Nueva variable, donde...
 #   caso Chile,     tasa interes x 0,1
 #   caso Colombia,  tasa interes / 2
 #   caso Peru,      tasa interes + 0,3
 
 datosCSV$nuevatasa=0    # el nombre de la variable es nuevatasa
 ultimo<-nrow(datosCSV)
-for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
+for (x in 1:ultimo){    # rutina para convertir tasa chr a n√∫mero
   tasaoriginal<-datosCSV[x,11]
   n_datos<-nchar(datosCSV[x,11])
   busca_coma<-0
@@ -189,7 +191,7 @@ for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
     }
   }
   
-  if (datosCSV[x,1]=="chile"){    #tratamiento de la tasa seg˙n problema planteado
+  if (datosCSV[x,1]=="chile"){    #tratamiento de la tasa seg√∫n problema planteado
     datosCSV[x,13]<- tasanumerica*0.1
   }else if (datosCSV[x,1]=="colombia"){
     datosCSV[x,13]<- tasanumerica/2  
@@ -200,14 +202,14 @@ for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
 print(datosCSV$nuevatasa)
 
 
-# respuesta N∞6. Reemplazar exportaciones redondeadas al primer decimal, donde...
+# respuesta N¬∞6. Reemplazar exportaciones redondeadas al primer decimal, donde...
 #   si es mayor a 2,1 reemplazar por valor 1
 #   si es menor a 2,1 reemplazar por valor 2
 #   si es igual a 2,1 reemplazar por valor 3
 
 expo_num<-numeric()
 ultimo<-nrow(datosCSV)
-for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
+for (x in 1:ultimo){    # rutina para convertir tasa chr a n√∫mero
   exporiginal<-datosCSV[x,5]
   n_datos<-nchar(datosCSV[x,5])
   busca_coma<-0
@@ -248,12 +250,12 @@ for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
       valor<-"no"
     }
     
-    if (valor!="no"){   #realizando excepciÛn del caracter ","
+    if (valor!="no"){   #realizando excepci√≥n del caracter ","
       exponumerica<-exponumerica + valor* (10^potencia)
     }
   }
   exponumerica<-round(exponumerica,1) #redondeo al primer decimal
-  if (exponumerica>2.1){    #exportaciÛn seg˙n problema planteado
+  if (exponumerica>2.1){    #exportaci√≥n seg√∫n problema planteado
     datosCSV[x,5]<- 1
   }else if (exponumerica<2.1){
     datosCSV[x,5]<- 2  
@@ -264,14 +266,14 @@ for (x in 1:ultimo){    # rutina para convertir tasa chr a n˙mero
 print(datosCSV$exportaciones)
 
   
-# bonus track. Graficar algunas variables, en funciÛn de una pregunta
+# bonus track. Graficar algunas variables, en funci√≥n de una pregunta
 # pregunta: represente los ingresos y gastos de empresas chilenas, agrupados por tipo
 
 baseChile<-datosCSV[datosCSV$pais=="chile",c(2,3,12)]  #extrae datos de Chile
 ultimo<-nrow(baseChile)
 
 ingresos<-numeric()   #vector que tiene los ingresos
-for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
+for (x in 1:ultimo){    # rutina para convertir chr a n√∫mero
   exporiginal<-baseChile[x,1]
   n_datos<-nchar(baseChile[x,1])
   busca_coma<-0
@@ -312,7 +314,7 @@ for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
       valor<-"no"
     }
     
-    if (valor!="no"){   #realizando excepciÛn del caracter ","
+    if (valor!="no"){   #realizando excepci√≥n del caracter ","
       exponumerica<-exponumerica + valor* (10^potencia)
     }
   }
@@ -320,7 +322,7 @@ for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
 }
 
 gastos<-numeric()   #vector que tiene los gastos
-for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
+for (x in 1:ultimo){    # rutina para convertir chr a n√∫mero
   exporiginal<-baseChile[x,2]
   n_datos<-nchar(baseChile[x,2])
   busca_coma<-0
@@ -361,7 +363,7 @@ for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
       valor<-"no"
     }
     
-    if (valor!="no"){   #realizando excepciÛn del caracter ","
+    if (valor!="no"){   #realizando excepci√≥n del caracter ","
       exponumerica<-exponumerica + valor* (10^potencia)
     }
   }
@@ -370,7 +372,7 @@ for (x in 1:ultimo){    # rutina para convertir chr a n˙mero
 
 porte<-baseChile$tamanio
 porte2<-matrix(0,2,4)
-colnames(porte2)<-c("grande","mediana","pequeÒa","micro")
+colnames(porte2)<-c("grande","mediana","peque√±a","micro")
 row.names(porte2)<-c("ingresos","gastos")
 for (x in 1:ultimo){
   if (porte[x]=="grande"){
